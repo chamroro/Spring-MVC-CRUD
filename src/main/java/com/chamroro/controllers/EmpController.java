@@ -28,13 +28,13 @@ public class EmpController {
      *  because default request is GET*/  
     @RequestMapping(value="/save",method = RequestMethod.POST)  
     public String save(@ModelAttribute("emp") Emp emp){  
-        dao.save(emp);  
+        dao.insert(emp);  
         return "redirect:/viewemp";//will redirect to viewemp request mapping  
     }  
     /* It provides list of employees in model object */  
     @RequestMapping("/viewemp")  
-    public String viewemp(Model m){  
-        List<Emp> list=dao.getEmployees();  
+    public String viewemp(Model m){ 
+        List<Emp> list=dao.getEmpList();  
         m.addAttribute("list",list);
         return "viewemp";  
     }  
@@ -42,7 +42,7 @@ public class EmpController {
      * The @PathVariable puts URL data into variable.*/  
     @RequestMapping(value="/editemp/{id}")  
     public String edit(@PathVariable int id, Model m){  
-        Emp emp=dao.getEmpById(id);  
+        Emp emp=dao.get(id);  
         m.addAttribute("command",emp);
         return "empeditform";  
     }  
